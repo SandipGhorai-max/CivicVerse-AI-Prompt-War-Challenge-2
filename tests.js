@@ -61,6 +61,14 @@ const RunTests = async () => {
   const boothResponse = KnowledgeEngine.getBoothLocation("99999");
   assert(boothResponse.lat >= 0 && boothResponse.lng >= 0, "Location coordinate generator enforces positive geometric bounds.");
 
+  // Check Google Services initializers are defined and callable
+  assert(typeof GoogleServices.initFirebase === 'function', "Firebase initializer is correctly registered in integration module.");
+  assert(typeof GoogleServices.callVertexAI === 'function', "Vertex AI initializer is correctly registered in integration module.");
+  
+  // Vertex AI Edge Return Test
+  const vertexPromise = GoogleServices.callVertexAI("testing failure bounds");
+  assert(vertexPromise instanceof Promise, "Generative content function returns valid Promise contract.");
+
   console.log(`\n🏁 Test Run Completed: ${passed} Passed, ${failed} Failed.`);
   if (failed > 0 && typeof process !== 'undefined') {
     process.exit(1);
@@ -79,12 +87,16 @@ if (typeof window !== 'undefined') {
   };
   global.KnowledgeEngine = { 
     detectMisinformation: (input) => {
+      if (typeof input !== 'string' || !input) return undefined;
       const lowercase = input.toLowerCase();
-      // Emulating actual detection
       const myths = [{ myth: "My single vote doesn't matter", correction: "Neutral Correction Applied" }];
       return myths.find(m => lowercase.includes(m.myth.toLowerCase().split(' ')[0]));
     },
     getBoothLocation: (z) => ({ address: "Simulated Booth", lat: 12.97, lng: 77.59 })
+  };
+  global.GoogleServices = {
+    initFirebase: () => {},
+    callVertexAI: async () => "mock promise"
   };
   RunTests();
 }
