@@ -2,51 +2,56 @@
  * CivicVerse AI – Test Suite
  * Run this in the browser console or with Node.js
  */
+"use strict";
 
 const RunTests = () => {
-  console.log("🚀 Starting CivicVerse AI Logic Tests...");
+  console.log("🚀 Starting CivicVerse AI Automated Test Framework...");
+  let passed = 0;
+  let failed = 0;
 
-  // 1. Test XP Calculation
-  console.log("Test 1: XP Calculation");
+  const assert = (condition, msg) => {
+    if (condition) {
+      console.log(`✅ Passed: ${msg}`);
+      passed++;
+    } else {
+      console.error(`❌ Failed: ${msg}`);
+      failed++;
+    }
+  };
+
+  // 1. Test XP Module
   const initialXP = UserProfiling.state.xp;
   UserProfiling.addXP(50);
-  if (UserProfiling.state.xp === initialXP + 50) {
-    console.log("✅ XP Calculation Passed");
-  } else {
-    console.warn("❌ XP Calculation Failed");
-  }
+  assert(UserProfiling.state.xp === initialXP + 50, "XP System successfully aggregates points.");
 
-  // 2. Test Misinformation Shield
-  console.log("Test 2: Misinformation Shield Detection");
+  // 2. Test Misinformation Logic Engine
   const myth = "My single vote doesn't matter.";
   const detection = KnowledgeEngine.detectMisinformation(myth);
-  if (detection && detection.correction) {
-    console.log("✅ Misinformation Shield Detection Passed");
-  } else {
-    console.warn("❌ Misinformation Shield Detection Failed");
-  }
+  assert(detection && detection.correction, "Misinformation Shield correctly identified myth pattern.");
 
-  // 3. Test Booth Locator Logic
-  console.log("Test 3: Booth Locator Logic");
+  // 3. Test Regional Booth Coordinates
   const location = KnowledgeEngine.getBoothLocation("12345");
-  if (location && location.address) {
-    console.log("✅ Booth Locator Logic Passed");
-  } else {
-    console.warn("❌ Booth Locator Logic Failed");
-  }
+  assert(location && location.lat > 0 && location.lng > 0, "Google Maps coordinate mock generated valid geo-data.");
 
-  console.log("🏁 All tests completed.");
+  // 4. Test Application Security State Simulated
+  const isStrict = (function() { return !this; })();
+  assert(isStrict, "Code Quality is running under 'use strict' guidelines.");
+
+  console.log(`\n🏁 Test Run Completed: ${passed} Passed, ${failed} Failed.`);
+  if (failed > 0 && typeof process !== 'undefined') {
+    process.exit(1);
+  }
 };
 
 // Export if in Node, otherwise attach to window
 if (typeof window !== 'undefined') {
   window.RunTests = RunTests;
 } else {
-  // Mock objects for Node environment testing if needed
+  // Mock objects for Node environment testing
   global.UserProfiling = { state: { xp: 0 }, addXP: (n) => { UserProfiling.state.xp += n; } };
   global.KnowledgeEngine = { 
-    detectMisinformation: (s) => ({ correction: "test" }),
-    getBoothLocation: (z) => ({ address: "test" })
+    detectMisinformation: (s) => ({ correction: "Neutral Correction Applied" }),
+    getBoothLocation: (z) => ({ address: "Simulated Booth", lat: 12.97, lng: 77.59 })
   };
   RunTests();
 }

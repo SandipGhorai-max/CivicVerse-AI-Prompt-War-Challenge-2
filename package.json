@@ -4,7 +4,7 @@
   "description": "CivicVerse AI – The Interactive Democracy Engine",
   "main": "app.js",
   "scripts": {
-    "start": "serve . -p 3000",
+    "start": "serve . -p 8000",
     "test": "node tests.js",
     "build": "echo 'Project is built using Vanilla JS/HTML/CSS. No bundling required.' && exit 0"
   },

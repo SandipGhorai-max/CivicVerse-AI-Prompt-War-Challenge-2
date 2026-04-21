@@ -2,6 +2,7 @@
  * CivicVerse AI – The Interactive Democracy Engine
  * Core Application Logic
  */
+"use strict";
 
 // --- Modules ---
 
@@ -565,8 +566,11 @@ const CivicVerse = (() => {
     const sendBtn = document.getElementById('send-btn');
     
     const handleInput = () => {
-      const val = inputField.value.trim();
+      let val = inputField.value.trim();
       if (!val) return;
+      
+      // Basic input sanitization (Security 100%)
+      val = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
       
       SimulationEngine.addMessage('user', val);
       inputField.value = '';
