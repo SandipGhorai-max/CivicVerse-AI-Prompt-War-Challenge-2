@@ -286,80 +286,6 @@ const SimulationEngine = (() => {
     container.innerHTML = svgContent;
   };
 
-  const roles = {
-    voter: {
-      title: "Active Citizen Journey",
-      steps: [
-        {
-          id: 'Registration',
-          phase: 'Phase 1: Registration',
-          title: 'Checking Eligibility',
-          subtitle: 'The first step to having your say.',
-          scenario: 'Welcome, Citizen! You are about to embark on your first civic journey. Before you can vote, you must check if you are registered. In your region, the deadline is approaching. What is your first action?',
-          choices: [
-            { text: 'Check registration status online', xp: 20, feedback: 'Great choice! Digital portals are the fastest way.', next: 'verification' },
-            { text: 'Visit the local municipal office', xp: 15, feedback: 'A reliable traditional method. Good for complex cases.', next: 'verification' },
-            { text: 'Wait for a letter in the mail', xp: -5, feedback: 'Waiting might lead to missing the deadline. Action is safer!', next: 'late' }
-          ]
-        },
-        {
-          id: 'Verification',
-          phase: 'Phase 2: Verification',
-          title: 'Identity Verification',
-          subtitle: 'Ensuring every vote is legitimate.',
-          scenario: 'You are at the registration portal. It asks for a valid Government ID. You realize your current ID expired last month. What do you do?',
-          choices: [
-            { text: 'Apply for an emergency renewal', xp: 25, feedback: 'Correct! Most systems provide a grace period or fast-track for elections.', next: 'polling' },
-            { text: 'Try to use the expired ID anyway', xp: 5, feedback: 'Risky. It might be rejected at the booth. Always verify valid docs.', next: 'polling' },
-            { text: 'Ask if a utility bill is sufficient', xp: 15, feedback: 'Smart. Many regions accept secondary proof of residence.', next: 'polling' }
-          ]
-        },
-        {
-          id: 'Voting',
-          phase: 'Phase 3: At the Booth',
-          title: 'Cast Your Vote',
-          subtitle: 'The moment of decision.',
-          scenario: 'You are at the polling station. The line is long, and you hear someone spreading a rumor that the voting machines are malfunctioning. What is your response?',
-          choices: [
-            { text: 'Report the rumor to the Election Officer', xp: 30, feedback: 'Excellent. Fighting misinformation ensures a fair process.', next: 'finish' },
-            { text: 'Ignore it and wait for your turn', xp: 10, feedback: 'Neutral response. You secured your vote, but the myth remains.', next: 'finish' },
-            { text: 'Leave and come back later', xp: -10, feedback: 'Caution: Closing times are strict. Leaving might mean losing your vote.', next: 'finish' }
-          ]
-        }
-      ]
-    },
-    candidate: {
-      title: "Political Leadership Path",
-      steps: [
-        {
-          id: 'Nomination',
-          phase: 'Phase 1: Nomination',
-          title: 'Filing Papers',
-          subtitle: 'Entering the race officially.',
-          scenario: 'You have decided to run for office. You need to file your nomination papers and deposit a security amount. A supporter offers to pay the deposit for you in exchange for a "future favor". How do you handle this?',
-          choices: [
-            { text: 'Decline and pay from your campaign fund', xp: 30, feedback: 'High Integrity! Avoiding undefined favors protects your future autonomy.', next: 'campaign' },
-            { text: 'Accept the help as a routine donation', xp: 10, feedback: 'Common practice, but ensure it is legally declared.', next: 'campaign' }
-          ]
-        },
-        {
-          id: 'Campaign',
-          phase: 'Phase 2: Campaigning',
-          title: 'Winning Hearts & Minds',
-          subtitle: 'Spreading your vision.',
-          scenario: 'Your opponent is using aggressive negative ads against you. Your campaign manager suggests a "counter-attack" using unverified claims about their personal life. What is your strategy?',
-          choices: [
-            { text: 'Stick to policy-based campaigning', xp: 40, feedback: 'Statesman-like! Voters often reward positivity and substance over time.', next: 'results' },
-            { text: 'Use a mix of policy and "defensive" truths', xp: 20, feedback: 'Pragmatic approach to protect your image.', next: 'results' }
-          ]
-        }
-      ]
-    }
-  };
-
-  let currentStepIndex = 0;
-  let currentRole = null;
-
   const renderStep = () => {
     const step = currentRole.steps[currentStepIndex];
     if (!step) {
@@ -468,56 +394,6 @@ const GoogleServices = (() => {
   const findBooth = (zip) => {
     const booth = KnowledgeEngine.getBoothLocation(zip);
     const resultBox = document.getElementById('booth-result');
-    resultBox.innerHTML = `<div class="fact-card" role="region" aria-labelledby="glossary-heading">
-          <h3 class="fact-card-title" id="glossary-heading">📖 Glossary</h3>
-          <div class="glossary-content" id="glossary-content">
-            <div class="glossary-search">
-              <input type="search" id="glossary-search" class="glossary-input" placeholder="Search terms..." aria-label="Search glossary terms" />
-            </div>
-            <div class="glossary-list" id="glossary-list" role="list" aria-label="Glossary terms"></div>
-          </div>
-        </div>
-
-        <div class="fact-card" role="region" aria-labelledby="maps-heading">
-          <h3 class="fact-card-title" id="maps-heading">📍 Booth Locator</h3>
-          <div id="booth-locator" class="booth-locator-content">
-            <p class="booth-info">Find your nearest polling station.</p>
-            <div class="booth-search-row">
-              <input type="text" id="booth-zip" class="booth-input" placeholder="Enter PIN/Zip" />
-              <button id="find-booth-btn" class="booth-btn">Find</button>
-            </div>
-            <div id="booth-result" class="booth-result-box" aria-live="polite"></div>
-          </div>
-        </div>`;
-  };
-
-  return { initFirebase, syncProfile, callVertexAI, findBooth };
-})();
-
-/**
- * Google Services Integration Module (Mocks)
- */
-const GoogleServices = (() => {
-  const initFirebase = () => {
-    console.log("🔥 Firebase: Authenticated via OAuth 2.0 (Mock)");
-    CivicVerse.showToast("Secure session initialized via Firebase");
-  };
-
-  const syncProfile = (profile) => {
-    console.log("☁️ Cloud Sync: User profile synced to Realtime Database");
-  };
-
-  const callVertexAI = async (prompt) => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(`[Vertex AI] Based on current election laws, your question about "${prompt}" is handled by rules in your region.`);
-      }, 1500);
-    });
-  };
-
-  const findBooth = (zip) => {
-    const booth = KnowledgeEngine.getBoothLocation(zip);
-    const resultBox = document.getElementById('booth-result');
     resultBox.innerHTML = `
       <div class="booth-card">
         <strong>${booth.address}</strong><br/>
@@ -569,8 +445,10 @@ const CivicVerse = (() => {
       let val = inputField.value.trim();
       if (!val) return;
       
-      // Basic input sanitization (Security 100%)
-      val = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      // Secure input sanitization via text node creation
+      const tempDiv = document.createElement('div');
+      tempDiv.textContent = val;
+      val = tempDiv.innerHTML;
       
       SimulationEngine.addMessage('user', val);
       inputField.value = '';
