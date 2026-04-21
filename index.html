@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CivicVerse AI – The Interactive Democracy Engine. Experience elections through narrative-driven simulations and personalized civic journeys." />
+  <meta name="keywords" content="civicverse, election simulator, voter education, civic engagement, interactive democracy" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>CivicVerse AI – The Interactive Democracy Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="skip-link" id="skip-link">Skip to main content</a>
+
+  <!-- ===== LANDING SCREEN ===== -->
+  <div id="landing-screen" class="screen active" role="main" aria-label="Democracy Simulator AI Landing">
+    <!-- Animated background particles -->
+    <div class="bg-particles" aria-hidden="true">
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    </div>
+
+    <header class="landing-header" role="banner">
+      <div class="logo-badge" aria-hidden="true">🏛️</div>
+      <div class="header-text">
+        <h1 class="brand-title">CivicVerse <span class="ai-badge">AI</span></h1>
+        <p class="brand-tagline">The Interactive Democracy Engine</p>
+      </div>
+    </header>
+
+    <main id="main-content" class="landing-main">
+      <div class="hero-section">
+        <div class="hero-label" aria-label="Interactive civic simulation platform">🎮 Interactive Civic Simulation Platform</div>
+        <h2 class="hero-title">
+          Don't Just <em>Learn</em> Democracy.<br/>
+          <span class="gradient-text">Live It.</span>
+        </h2>
+        <p class="hero-description">
+          Step into the shoes of a Voter, Candidate, or Election Officer. 
+          Experience every decision, consequence, and milestone of a real election — through AI-guided simulation.
+        </p>
+
+        <!-- Stats row -->
+        <div class="stats-row" role="list" aria-label="Platform statistics">
+          <div class="stat-item" role="listitem">
+            <span class="stat-number" id="stat-users">0</span>
+            <span class="stat-label">Simulations Run</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Unique Roles</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item" role="listitem">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Politically Neutral</span>
+          </div>
+        </div>
+
+        <!-- Role Selection Cards -->
+        <h3 class="section-label" id="role-selection-label">Choose Your Role to Begin</h3>
+        <div class="role-cards" role="radiogroup" aria-labelledby="role-selection-label">
+
+          <button class="role-card" id="role-voter" data-role="voter" aria-label="Play as Voter – Experience the voting journey">
+            <div class="role-card-glow voter-glow" aria-hidden="true"></div>
+            <div class="role-icon voter-icon" aria-hidden="true">👤</div>
+            <h4 class="role-title">Voter</h4>
+            <p class="role-desc">Check eligibility, register, verify your ID, and cast your simulated vote.</p>
+            <div class="role-tags" aria-label="Tags">
+              <span class="tag">5 Steps</span>
+              <span class="tag">Beginner Friendly</span>
+            </div>
+            <div class="role-arrow" aria-hidden="true">→</div>
+          </button>
+
+          <button class="role-card featured" id="role-candidate" data-role="candidate" aria-label="Play as Candidate – Simulate running for office">
+            <div class="role-card-glow candidate-glow" aria-hidden="true"></div>
+            <div class="featured-badge" aria-label="Most Popular">⭐ Most Popular</div>
+            <div class="role-icon candidate-icon" aria-hidden="true">🧑‍💼</div>
+            <h4 class="role-title">Candidate</h4>
+            <p class="role-desc">File your nomination, plan campaigns, allocate budget, and win votes.</p>
+            <div class="role-tags" aria-label="Tags">
+              <span class="tag">7 Steps</span>
+              <span class="tag">Strategy Mode</span>
+            </div>
+            <div class="role-arrow" aria-hidden="true">→</div>
+          </button>
+
+          <button class="role-card" id="role-officer" data-role="officer" aria-label="Play as Election Officer – Manage polling stations">
+            <div class="role-card-glow officer-glow" aria-hidden="true"></div>
+            <div class="role-icon officer-icon" aria-hidden="true">🏛️</div>
+            <h4 class="role-title">Election Officer</h4>
+            <p class="role-desc">Manage polling stations, enforce rules, handle crises, and count votes.</p>
+            <div class="role-tags" aria-label="Tags">
+              <span class="tag">6 Steps</span>
+              <span class="tag">Advanced</span>
+            </div>
+            <div class="role-arrow" aria-hidden="true">→</div>
+          </button>
+
+        </div>
+
+        <!-- Quick Setup -->
+        <div class="setup-panel" role="region" aria-label="Simulation settings">
+          <div class="setup-row">
+            <div class="setup-field">
+              <label for="user-location" class="setup-label">📍 Your Location (optional)</label>
+              <input type="text" id="user-location" class="setup-input" placeholder="e.g. India, USA, UK" aria-describedby="location-hint" />
+              <span id="location-hint" class="field-hint">Personalizes your simulation</span>
+            </div>
+            <div class="setup-field">
+              <label for="election-type" class="setup-label">🗳️ Election Type</label>
+              <select id="election-type" class="setup-input" aria-label="Select election type">
+                <option value="national">National / General Election</option>
+                <option value="local">Local / Municipal Election</option>
+                <option value="state">State / Provincial Election</option>
+                <option value="primary">Primary Election</option>
+              </select>
+            </div>
+            <div class="setup-field">
+              <label for="difficulty" class="setup-label">🎯 Difficulty</label>
+              <select id="difficulty" class="setup-input" aria-label="Select difficulty">
+                <option value="beginner">Beginner – Simple Explanations</option>
+                <option value="advanced">Advanced – Policy-Level Insights</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="landing-footer" role="contentinfo">
+      <div class="accessibility-controls">
+        <button id="toggle-voice" class="voice-btn" aria-pressed="false">
+          <span class="voice-icon">🎤</span> Voice Interaction: <span id="voice-status">OFF</span>
+        </button>
+        <button id="toggle-eli15" class="eli15-btn" aria-pressed="false">
+          <span class="eli-icon">🧠</span> Explain Like I'm 15: <span id="eli15-status">OFF</span>
+        </button>
+      </div>
+      <p>🛡️ Politically Neutral &nbsp;•&nbsp; 🔐 Secure & Encrypted &nbsp;•&nbsp; 🌍 Universally Accessible</p>
+    </footer>
+  </div>
+
+  <!-- ===== SIMULATION SCREEN ===== -->
+  <div id="simulation-screen" class="screen" role="main" aria-label="Democracy Simulation" aria-live="polite">
+    
+    <!-- Top Navigation Bar -->
+    <nav class="sim-navbar" role="navigation" aria-label="Simulation navigation">
+      <button class="nav-back-btn" id="back-to-home" aria-label="Return to home screen">
+        <span aria-hidden="true">←</span> Home
+      </button>
+      <div class="nav-center" aria-live="polite" aria-atomic="true">
+        <span class="nav-role-badge" id="nav-role-display" aria-label="Current role"></span>
+        <span class="nav-title" id="nav-title-display"></span>
+      </div>
+      <div class="nav-xp" aria-label="Experience points">
+        <span class="xp-icon" aria-hidden="true">⚡</span>
+        <span class="xp-value" id="xp-display">0</span> XP
+      </div>
+    </nav>
+
+    <!-- Progress Timeline & Journey Map -->
+    <div class="civic-header-region">
+      <div id="journey-map-container" class="journey-map-container" role="region" aria-label="Civic Journey Map">
+        <!-- SVG Journey Map will be injected here -->
+      </div>
+      <div class="timeline-bar" role="region" aria-label="Progress timeline">
+        <div class="timeline-track" id="timeline-track" aria-label="Simulation steps" role="list"></div>
+        <div class="timeline-progress-fill" id="timeline-fill" style="width:0%" aria-hidden="true"></div>
+      </div>
+      <div id="smart-timeline" class="smart-timeline" role="region" aria-label="Election Countdown">
+        <span class="timer-label">Election Day Countdown:</span>
+        <span id="countdown-timer" class="timer-value">--:--:--:--</span>
+      </div>
+    </div>
+
+    <!-- Main Sim Layout -->
+    <div class="sim-layout">
+      
+      <!-- Left: Progress Dashboard -->
+      <aside class="sim-sidebar" role="complementary" aria-label="Progress and achievements">
+        
+        <div class="sidebar-card" role="region" aria-label="Overall progress">
+          <h3 class="sidebar-card-title">📊 Progress</h3>
+          <div class="circular-progress" role="img" aria-label="Progress indicator">
+            <svg viewBox="0 0 80 80" class="progress-svg" aria-hidden="true">
+              <circle cx="40" cy="40" r="34" class="progress-bg"/>
+              <circle cx="40" cy="40" r="34" class="progress-ring" id="progress-ring"/>
+            </svg>
+            <span class="progress-percent" id="progress-percent" aria-live="polite">0%</span>
+          </div>
+          <p class="sidebar-step-info" id="sidebar-step-info" aria-live="polite">Step 0 of 0</p>
+        </div>
+
+        <div class="sidebar-card" role="region" aria-label="Your badges">
+          <h3 class="sidebar-card-title">🏅 Badges</h3>
+          <div class="badges-grid" id="badges-grid" aria-live="polite" aria-label="Earned badges"></div>
+          <p class="no-badges-msg" id="no-badges-msg">Complete steps to earn badges!</p>
+        </div>
+
+        <div class="sidebar-card score-card" role="region" aria-label="Score breakdown">
+          <h3 class="sidebar-card-title">🎯 Score</h3>
+          <div class="score-breakdown" id="score-breakdown">
+            <div class="score-row">
+              <span>Decisions</span>
+              <span class="score-val" id="score-decisions">0</span>
+            </div>
+            <div class="score-row">
+              <span>Speed</span>
+              <span class="score-val" id="score-speed">0</span>
+            </div>
+            <div class="score-row">
+              <span>Accuracy</span>
+              <span class="score-val" id="score-accuracy">0</span>
+            </div>
+            <div class="score-row total">
+              <span>Total XP</span>
+              <span class="score-val" id="score-total">0</span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Center: Chat / Scenario Area -->
+      <section class="sim-main" role="region" aria-label="Simulation scenario">
+        
+        <!-- Scenario Display -->
+        <div class="scenario-header" id="scenario-header" aria-live="polite">
+          <div class="scenario-phase-badge" id="scenario-phase-badge" aria-label="Current phase"></div>
+          <h2 class="scenario-title" id="scenario-title">Loading simulation...</h2>
+          <p class="scenario-subtitle" id="scenario-subtitle"></p>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-area" id="chat-area" role="log" aria-label="Simulation conversation" aria-live="polite" tabindex="0"></div>
+
+        <!-- Decision Cards -->
+        <div class="decision-panel" id="decision-panel" role="region" aria-label="Available choices" aria-live="polite"></div>
+
+        <!-- User Input Area -->
+        <div class="input-area" id="input-area" role="region" aria-label="Type your response">
+          <div class="input-wrapper">
+            <textarea 
+              id="user-input" 
+              class="user-input-field" 
+              placeholder="Type your response or question..." 
+              rows="2"
+              aria-label="Your response"
+              aria-describedby="input-hint"
+            ></textarea>
+            <button class="send-btn" id="send-btn" aria-label="Send message">
+              <span aria-hidden="true">➤</span>
+            </button>
+          </div>
+          <p id="input-hint" class="input-hint">Press Enter to send • Ask anything about the election process</p>
+        </div>
+
+      </section>
+
+      <!-- Right: Fact Panel -->
+      <aside class="sim-fact-panel" role="complementary" aria-label="Facts and myth busting">
+        
+        <div class="fact-card" role="region" aria-labelledby="myth-buster-heading">
+          <h3 class="fact-card-title" id="myth-buster-heading">⚠️ Myth Buster</h3>
+          <div class="myth-content" id="myth-content" aria-live="polite">
+            <p class="fact-placeholder">Misinformation detected here will be corrected automatically.</p>
+          </div>
+        </div>
+
+        <div class="fact-card" role="region" aria-labelledby="did-you-know-heading">
+          <h3 class="fact-card-title" id="did-you-know-heading">💡 Did You Know?</h3>
+          <div class="fact-content" id="fact-content" aria-live="polite">
+            <p class="fact-text" id="current-fact">Select a role to see election facts!</p>
+          </div>
+          <button class="next-fact-btn" id="next-fact-btn" aria-label="Show next fact">Next Fact →</button>
+        </div>
+
+        <div class="fact-card" role="region" aria-labelledby="glossary-heading">
+          <h3 class="fact-card-title" id="glossary-heading">📖 Glossary</h3>
+          <div class="glossary-content" id="glossary-content">
+            <div class="glossary-search">
+              <input type="search" id="glossary-search" class="glossary-input" placeholder="Search terms..." aria-label="Search glossary terms" />
+            </div>
+            <div class="glossary-list" id="glossary-list" role="list" aria-label="Glossary terms"></div>
+          </div>
+        </div>
+
+        <div class="fact-card" role="region" aria-labelledby="maps-heading">
+          <h3 class="fact-card-title" id="maps-heading">📍 Booth Locator</h3>
+          <div id="booth-locator" class="booth-locator-content">
+            <p class="booth-info">Find your nearest polling station.</p>
+            <div class="booth-search-row">
+              <input type="text" id="booth-zip" class="booth-input" placeholder="Enter PIN/Zip" />
+              <button id="find-booth-btn" class="booth-btn">Find</button>
+            </div>
+            <div id="booth-result" class="booth-result-box" aria-live="polite"></div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <div id="results-screen" class="screen" role="main" aria-label="Simulation results">
+    <div class="results-container">
+      <div class="results-confetti" aria-hidden="true" id="confetti-container"></div>
+      
+      <div class="results-header">
+        <div class="results-emoji" id="results-emoji" aria-hidden="true">🎉</div>
+        <h2 class="results-title" id="results-title">Simulation Complete!</h2>
+        <p class="results-subtitle" id="results-subtitle"></p>
+      </div>
+
+      <div class="results-grid">
+        <div class="result-card" role="region" aria-label="Final score">
+          <h3>Final Score</h3>
+          <div class="result-score" id="result-score" aria-live="polite">0 XP</div>
+          <div class="result-stars" id="result-stars" aria-label="Rating" role="img"></div>
+        </div>
+
+        <div class="result-card" role="region" aria-label="Badges earned">
+          <h3>Badges Earned</h3>
+          <div class="result-badges" id="result-badges" aria-live="polite"></div>
+        </div>
+
+        <div class="result-card" role="region" aria-label="Key lessons learned">
+          <h3>Key Lessons</h3>
+          <ul class="result-lessons" id="result-lessons" aria-label="Lessons from simulation"></ul>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button class="action-btn primary" id="try-another-role" aria-label="Try a different role">
+          🔄 Try Another Role
+        </button>
+        <button class="action-btn secondary" id="share-results" aria-label="Share your results">
+          📤 Share Results
+        </button>
+        <button class="action-btn ghost" id="restart-same" aria-label="Restart current simulation">
+          ↺ Restart Same Role
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" aria-hidden="true"></div>
+
+  <!-- XP Popup -->
+  <div id="xp-popup" class="xp-popup" aria-live="polite" aria-hidden="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

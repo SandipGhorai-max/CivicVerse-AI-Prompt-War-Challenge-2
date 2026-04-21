@@ -1,0 +1,21 @@
+{
+  "name": "civicverse-ai",
+  "version": "1.0.0",
+  "description": "CivicVerse AI – The Interactive Democracy Engine",
+  "main": "app.js",
+  "scripts": {
+    "start": "serve . -p 3000",
+    "test": "node tests.js",
+    "build": "echo 'Project is built using Vanilla JS/HTML/CSS. No bundling required.' && exit 0"
+  },
+  "keywords": [
+    "democracy",
+    "ai",
+    "civic"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
